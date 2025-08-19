@@ -1,5 +1,41 @@
 import React from 'react';
 
+const TopBanner: React.FC = () => (
+  <div className="bg-gradient-to-r from-blue-100 to-blue-200 border-2 border-dashed border-blue-300 rounded-lg flex items-center justify-center text-blue-600 font-medium h-20 w-full">
+    <div className="text-center">
+      <div className="text-sm font-semibold mb-1">Top Advertisement Banner</div>
+      <div className="text-xs">728 x 90 - Leaderboard</div>
+    </div>
+  </div>
+);
+
+const SideBanner: React.FC = () => (
+  <div className="bg-gradient-to-br from-green-100 to-green-200 border-2 border-dashed border-green-300 rounded-lg flex items-center justify-center text-green-600 font-medium h-64 w-full">
+    <div className="text-center">
+      <div className="text-sm font-semibold mb-1">Side Advertisement</div>
+      <div className="text-xs">300 x 250 - Medium Rectangle</div>
+    </div>
+  </div>
+);
+
+const InlineBanner: React.FC = () => (
+  <div className="bg-gradient-to-r from-purple-100 to-purple-200 border-2 border-dashed border-purple-300 rounded-lg flex items-center justify-center text-purple-600 font-medium h-16 w-full">
+    <div className="text-center">
+      <div className="text-sm font-semibold mb-1">Inline Advertisement</div>
+      <div className="text-xs">468 x 60 - Banner</div>
+    </div>
+  </div>
+);
+
+const BottomBanner: React.FC = () => (
+  <div className="bg-gradient-to-r from-orange-100 to-orange-200 border-2 border-dashed border-orange-300 rounded-lg flex items-center justify-center text-orange-600 font-medium h-20 w-full">
+    <div className="text-center">
+      <div className="text-sm font-semibold mb-1">Bottom Advertisement Banner</div>
+      <div className="text-xs">728 x 90 - Leaderboard</div>
+    </div>
+  </div>
+);
+
 const MobileBanner: React.FC = () => (
   <div className="bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-500 font-medium h-16 w-full">
     <div className="text-center">
