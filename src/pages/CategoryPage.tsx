@@ -420,6 +420,8 @@ const CategoryPage: React.FC = () => {
           <div className="hidden lg:block w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
               <AdBanners.SideBanner position="left" size="large" />
+              <AdBanners.FlippingAd size="large" />
+              <AdBanners.FlippingAd size="medium" />
             </div>
           </div>
 

@@ -357,6 +357,7 @@ const TimeWidget: React.FC = () => {
 // Flipping Ad Component for Landing Pages
 const FlippingAd: React.FC<{ size?: 'small' | 'medium' | 'large' }> = ({ size = 'medium' }) => {
   const [currentAdIndex, setCurrentAdIndex] = React.useState(0);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   
   const ads = [
     {
@@ -441,6 +442,14 @@ const FlippingAd: React.FC<{ size?: 'small' | 'medium' | 'large' }> = ({ size = 
     return () => clearInterval(interval);
   }, [ads.length]);
 
+  const handleAdClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const currentAd = ads[currentAdIndex];
   
   const sizeClasses = {
@@ -456,47 +465,116 @@ const FlippingAd: React.FC<{ size?: 'small' | 'medium' | 'large' }> = ({ size = 
   };
 
   return (
-    <div className={`bg-gradient-to-r ${currentAd.bgColor} ${currentAd.textColor} rounded-lg shadow-lg ${sizeClasses[size]} transition-all duration-500 ease-in-out transform hover:scale-105 cursor-pointer overflow-hidden relative`}>
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16"></div>
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12"></div>
-      </div>
-      
-      {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-between">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center space-x-2 mb-2">
-              <span className="text-2xl">{currentAd.icon}</span>
-              <h3 className={`font-bold ${textSizes[size].title}`}>{currentAd.title}</h3>
+    <>
+      <div 
+        className={`bg-gradient-to-r ${currentAd.bgColor} ${currentAd.textColor} rounded-lg shadow-lg ${sizeClasses[size]} transition-all duration-500 ease-in-out transform hover:scale-105 cursor-pointer overflow-hidden relative`}
+        onClick={handleAdClick}
+      >
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col justify-between">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center space-x-2 mb-2">
+                <span className="text-2xl">{currentAd.icon}</span>
+                <h3 className={`font-bold ${textSizes[size].title}`}>{currentAd.title}</h3>
+              </div>
+              <p className={`${textSizes[size].subtitle} opacity-90`}>{currentAd.subtitle}</p>
             </div>
-            <p className={`${textSizes[size].subtitle} opacity-90`}>{currentAd.subtitle}</p>
+          </div>
+          
+          <div className="flex items-end justify-between">
+            <button className={`bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 rounded-lg font-semibold transition-all duration-200 ${textSizes[size].button}`}>
+              {currentAd.buttonText}
+            </button>
+            
+            {/* Progress Dots */}
+            <div className="flex space-x-1">
+              {ads.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentAdIndex ? 'bg-white' : 'bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
         
-        <div className="flex items-end justify-between">
-          <button className={`bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 rounded-lg font-semibold transition-all duration-200 ${textSizes[size].button}`}>
-            {currentAd.buttonText}
-          </button>
-          
-          {/* Progress Dots */}
-          <div className="flex space-x-1">
-            {ads.map((_, index) => (
-              <div
-                key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentAdIndex ? 'bg-white' : 'bg-white/40'
-                }`}
-              />
-            ))}
+        {/* Slide Animation Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full animate-pulse"></div>
+      </div>
+
+      {/* Ad Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-900">Advertisement</h2>
+              <button
+                onClick={handleCloseModal}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              <div className={`bg-gradient-to-r ${currentAd.bgColor} ${currentAd.textColor} rounded-lg p-8 mb-6`}>
+                <div className="flex items-center space-x-4 mb-4">
+                  <span className="text-4xl">{currentAd.icon}</span>
+                  <div>
+                    <h3 className="text-2xl font-bold">{currentAd.title}</h3>
+                    <p className="text-lg opacity-90">{currentAd.subtitle}</p>
+                  </div>
+                </div>
+                
+                <div className="mb-6">
+                  <p className="text-base opacity-90 mb-4">
+                    This is a premium advertisement space. Contact us to learn more about advertising opportunities 
+                    and how we can help promote your business to the Illinois Desi community.
+                  </p>
+                  <ul className="list-disc list-inside space-y-2 text-sm opacity-80">
+                    <li>Reach thousands of potential customers</li>
+                    <li>Targeted advertising to specific demographics</li>
+                    <li>Multiple ad formats and placements available</li>
+                    <li>Detailed analytics and performance tracking</li>
+                  </ul>
+                </div>
+                
+                <button className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 rounded-lg px-6 py-3 font-semibold transition-all duration-200">
+                  {currentAd.buttonText}
+                </button>
+              </div>
+              
+              <div className="text-center">
+                <p className="text-gray-600 mb-4">
+                  Interested in advertising with us?
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 font-semibold">
+                    Contact Sales Team
+                  </button>
+                  <button className="border-2 border-orange-500 text-orange-500 px-6 py-2 rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-200 font-semibold">
+                    View Pricing Plans
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      
-      {/* Slide Animation Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full animate-pulse"></div>
-    </div>
+      )}
+    </>
   );
 };
 
