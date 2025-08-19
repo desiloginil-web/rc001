@@ -22,7 +22,7 @@ const PostAdModal: React.FC<PostAdModalProps> = ({ isOpen, onClose }) => {
 
   const cities = [
     'Chicago', 'Aurora', 'Naperville', 'Bloomington-Normal', 'Peoria', 
-    'Springfield', 'Urbana-Champaign', 'Rockford', 'Joliet', 'Elgin'
+    'Springfield', 'Urbana-Champaign', 'Rockford'
   ];
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
