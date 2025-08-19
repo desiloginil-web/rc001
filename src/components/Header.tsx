@@ -35,9 +35,7 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
     'Peoria',
     'Springfield',
     'Urbana-Champaign',
-    'Rockford',
-    'Joliet',
-    'Elgin'
+    'Rockford'
   ];
 
   const handleSearch = () => {

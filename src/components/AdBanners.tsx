@@ -9,14 +9,50 @@ const MobileBanner: React.FC = () => (
   </div>
 );
 
-const RecentListings: React.FC = () => (
-  <div className="bg-white rounded-lg border border-gray-200 p-4">
-    <h3 className="text-lg font-semibold mb-4 text-gray-800">Recent Listings</h3>
-    <div className="space-y-3">
-      <div className="text-sm text-gray-600">Recent listings will appear here</div>
+const RecentListings: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  
+  const recentListings = [
+    { id: 1, title: 'Software Engineer Position', city: 'Chicago', description: 'Full-stack developer role with competitive salary' },
+    { id: 2, title: '3BR Downtown Apartment', city: 'Naperville', description: 'Modern apartment with city views and amenities' },
+    { id: 3, title: 'Honda Civic 2020', city: 'Aurora', description: 'Excellent condition, low mileage, single owner' },
+    { id: 4, title: 'Wedding Photography', city: 'Peoria', description: 'Professional photography with cultural expertise' },
+    { id: 5, title: 'Math Tutoring Services', city: 'Springfield', description: 'Experienced tutor for all grade levels' },
+    { id: 6, title: 'MacBook Pro 2021', city: 'Rockford', description: 'Like new condition, includes original accessories' },
+    { id: 7, title: 'Indian Dance Classes', city: 'Urbana-Champaign', description: 'Learn classical dance from certified instructor' },
+    { id: 8, title: 'House Cleaning Service', city: 'Bloomington-Normal', description: 'Reliable cleaning with excellent reviews' }
+  ];
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex >= recentListings.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [recentListings.length]);
+
+  return (
+    <div className="bg-white rounded-lg border border-gray-200 p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Recent Listings</h3>
+      <div className="relative overflow-hidden h-20">
+        <div 
+          className="transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateY(-${currentIndex * 80}px)` }}
+        >
+          {recentListings.map((listing) => (
+            <div key={listing.id} className="h-20 flex flex-col justify-center py-2 border-b border-gray-100 last:border-b-0">
+              <h4 className="text-sm font-medium text-gray-900 truncate">{listing.title}</h4>
+              <p className="text-xs text-gray-600 mb-1">{listing.city}</p>
+              <p className="text-xs text-gray-500 line-clamp-2">{listing.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 interface AdBannerProps {
   position?: 'left' | 'right';

@@ -25,6 +25,8 @@ interface ListingModalProps {
 }
 
 const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose }) => {
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  
   if (!isOpen || !listing) return null;
 
   const additionalImages = [
@@ -33,6 +35,14 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose })
     'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600',
     'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=600'
   ];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % additionalImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + additionalImages.length) % additionalImages.length);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -87,16 +97,55 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose })
 
           {/* Images */}
           <div className="mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2">
+            <div className="relative">
+              {/* Main Image with Navigation */}
+              <div className="relative mb-4">
                 <img
-                  src={listing.image}
+                  src={additionalImages[currentImageIndex]}
                   alt={listing.title}
-                  className="w-full h-64 md:h-80 object-cover rounded-lg"
+                  className="w-full h-64 md:h-96 object-cover rounded-lg"
                 />
+                
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevImage}
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+                >
+                  →
+                </button>
+                
+                {/* Image Counter */}
+                <div className="absolute bottom-2 right-2 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                  {currentImageIndex + 1} / {additionalImages.length}
+                </div>
               </div>
-              {additionalImages.slice(1, 4).map((image, index) => (
-                <div key={index} className="md:col-span-1">
+              
+              {/* Thumbnail Images */}
+              <div className="grid grid-cols-4 gap-2">
+                {additionalImages.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`relative overflow-hidden rounded-lg ${
+                      currentImageIndex === index ? 'ring-2 ring-orange-500' : ''
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${listing.title} ${index + 1}`}
+                      className="w-full h-20 object-cover hover:opacity-80 transition-opacity"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
                   <img
                     src={image}
                     alt={`${listing.title} ${index + 2}`}

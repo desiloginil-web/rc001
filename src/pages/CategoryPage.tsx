@@ -31,7 +31,7 @@ const CategoryPage: React.FC = () => {
 
   const cities = [
     'all', 'Chicago', 'Aurora', 'Naperville', 'Bloomington-Normal', 'Peoria', 
-    'Springfield', 'Urbana-Champaign', 'Rockford', 'Joliet', 'Elgin'
+    'Springfield', 'Urbana-Champaign', 'Rockford'
   ];
 
   const timeFilters = [
