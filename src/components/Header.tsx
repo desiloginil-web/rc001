@@ -9,9 +9,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedCity, setSelectedCity] = useState('All Cities');
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const navigationPages = [
@@ -25,38 +22,6 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
     { name: 'Events', path: '/category/Community Events', icon: Calendar },
     { name: 'Health', path: '/category/Health & Wellness', icon: Heart }
   ];
-
-  const cities = [
-    'All Cities',
-    'Chicago',
-    'Aurora',
-    'Naperville',
-    'Bloomington-Normal',
-    'Peoria',
-    'Springfield',
-    'Urbana-Champaign',
-    'Rockford'
-  ];
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      // Navigate to search results page with query parameters
-      const params = new URLSearchParams();
-      params.set('q', searchQuery.trim());
-      if (selectedCity !== 'All Cities') {
-        params.set('city', selectedCity);
-      }
-      navigate(`/search?${params.toString()}`);
-      // Clear search after navigation
-      setSearchQuery('');
-    }
-  };
-
-  const handleSearchKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
 
   return (
     <header className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
@@ -82,39 +47,6 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
             </Link>
           </div>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex flex-1 max-w-lg mx-6">
-            <div className="w-full flex">
-              <div className="relative">
-                <select 
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  className="h-12 pl-3 pr-6 border border-r-0 border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white text-sm"
-                >
-                  {cities.map(city => (
-                    <option key={city} value={city}>{city}</option>
-                  ))}
-                </select>
-                <MapPin className="absolute right-1 top-2.5 h-4 w-4 text-gray-400 pointer-events-none" />
-              </div>
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyPress={handleSearchKeyPress}
-                  placeholder="Search..."
-                  className="w-full h-12 pl-3 pr-12 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
-                />
-                <button 
-                  onClick={handleSearch}
-                  className="absolute right-0 top-0 h-12 px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600 transition-colors"
-                >
-                  <Search className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </div>
 
           {/* Weather Widget - Desktop */}
           <div className="hidden lg:flex items-center bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg mr-4">
@@ -154,36 +86,6 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
-        <div className="lg:hidden pb-3">
-          <div className="flex space-x-2">
-            <select 
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              className="h-10 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white text-sm"
-            >
-              {cities.map(city => (
-                <option key={city} value={city}>{city.length > 10 ? city.substring(0, 10) + '...' : city}</option>
-              ))}
-            </select>
-            <div className="relative flex-1">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={handleSearchKeyPress}
-                placeholder="Search..."
-                className="w-full h-10 pl-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
-              />
-              <button 
-                onClick={handleSearch}
-                className="absolute right-1 top-1 h-8 w-8 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors flex items-center justify-center"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
