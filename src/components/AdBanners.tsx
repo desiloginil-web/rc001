@@ -241,37 +241,25 @@ const BullionWidget: React.FC = () => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4">
       <h3 className="text-lg font-semibold mb-4 text-gray-800">Live Precious Metals</h3>
-      <div className="space-y-4">
+      <div className="flex items-center justify-between">
         {/* Gold */}
-        <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 p-3 rounded-lg border border-yellow-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-              <span className="font-semibold text-yellow-800">Gold</span>
-            </div>
-            <span className="text-xs text-yellow-600">per oz</span>
-          </div>
-          <div className="text-lg font-bold text-yellow-900">${prices.gold.price.toFixed(2)}</div>
-          <div className={`text-xs flex items-center ${prices.gold.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            <span>{prices.gold.change >= 0 ? '↗' : '↘'}</span>
-            <span className="ml-1">${Math.abs(prices.gold.change).toFixed(2)} ({prices.gold.changePercent >= 0 ? '+' : ''}{prices.gold.changePercent.toFixed(2)}%)</span>
-          </div>
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+          <span className="text-xs font-semibold text-yellow-800">Gold</span>
+          <span className="text-sm font-bold text-yellow-900">${prices.gold.price.toFixed(0)}</span>
+          <span className={`text-xs ${prices.gold.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {prices.gold.change >= 0 ? '↗' : '↘'}{prices.gold.changePercent.toFixed(1)}%
+          </span>
         </div>
         
         {/* Silver */}
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center">
-              <div className="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
-              <span className="font-semibold text-gray-800">Silver</span>
-            </div>
-            <span className="text-xs text-gray-600">per oz</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">${prices.silver.price.toFixed(2)}</div>
-          <div className={`text-xs flex items-center ${prices.silver.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            <span>{prices.silver.change >= 0 ? '↗' : '↘'}</span>
-            <span className="ml-1">${Math.abs(prices.silver.change).toFixed(2)} ({prices.silver.changePercent >= 0 ? '+' : ''}{prices.silver.changePercent.toFixed(2)}%)</span>
-          </div>
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+          <span className="text-xs font-semibold text-gray-800">Silver</span>
+          <span className="text-sm font-bold text-gray-900">${prices.silver.price.toFixed(2)}</span>
+          <span className={`text-xs ${prices.silver.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {prices.silver.change >= 0 ? '↗' : '↘'}{prices.silver.changePercent.toFixed(1)}%
+          </span>
         </div>
       </div>
     </div>
@@ -313,25 +301,19 @@ const TimeWidget: React.FC = () => {
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4">
       <h3 className="text-lg font-semibold mb-4 text-gray-800">World Clock</h3>
-      <div className="space-y-4">
+      <div className="flex items-center justify-between">
         {/* India Time */}
-        <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-3 rounded-lg border border-orange-200">
-          <div className="flex items-center mb-2">
-            <div className="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
-            <span className="font-semibold text-orange-800">India (IST)</span>
-          </div>
-          <div className="text-lg font-bold text-orange-900 font-mono">{getIndiaTime()}</div>
-          <div className="text-xs text-orange-600">Mumbai, Delhi, Kolkata</div>
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+          <span className="text-xs font-semibold text-orange-800">India</span>
+          <span className="text-sm font-bold text-orange-900 font-mono">{getIndiaTime()}</span>
         </div>
         
         {/* USA Time */}
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200">
-          <div className="flex items-center mb-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-            <span className="font-semibold text-blue-800">USA (CST)</span>
-          </div>
-          <div className="text-lg font-bold text-blue-900 font-mono">{getUSTime()}</div>
-          <div className="text-xs text-blue-600">Chicago, Illinois</div>
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+          <span className="text-xs font-semibold text-blue-800">USA</span>
+          <span className="text-sm font-bold text-blue-900 font-mono">{getUSTime()}</span>
         </div>
       </div>
     </div>
