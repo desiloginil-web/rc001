@@ -131,7 +131,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
       location: 'Springfield, IL',
       image: 'https://images.pexels.com/photos/1701194/pexels-photo-1701194.jpeg?auto=compress&cs=tinysrgb&w=400',
       views: 89,
-      timeAgo: '12 hours ago'
+      timeAgo: '12 hours ago',
       postedDate: new Date('2025-01-10'),
       featured: false,
       description: 'Experienced math tutor for students of all ages. Flexible scheduling available.'
