@@ -341,24 +341,6 @@ const TimeWidget: React.FC = () => {
 // Import ListingModal
 import ListingModal from './ListingModal';
 
-const AdBanners = {
-  TopBanner,
-  SideBanner,
-  InlineBanner,
-  BottomBanner,
-  MobileBanner,
-  RecentListings,
-  BullionWidget,
-  TimeWidget
-};
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 interface AdBannerProps {
   position?: 'left' | 'right';
   size?: 'small' | 'medium' | 'large';
@@ -458,7 +440,10 @@ const AdBanners = {
   SideBanner,
   InlineBanner,
   BottomBanner,
-  MobileBanner
+  MobileBanner,
+  RecentListings,
+  BullionWidget,
+  TimeWidget
 };
 
 export default AdBanners;
