@@ -611,7 +611,6 @@ const CategoryPage: React.FC = () => {
            </div>
          </div>
           </div>
-        </div>
       </main>
 
       {/* Bottom Banner Ad */}
