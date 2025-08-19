@@ -129,6 +129,20 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose })
               {/* Thumbnail Images */}
               <div className="grid grid-cols-4 gap-2">
                 {additionalImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`${listing.title} ${index + 1}`}
+                    className={`w-full h-16 object-cover rounded cursor-pointer transition-opacity ${
+                      index === currentImageIndex ? 'opacity-100 ring-2 ring-orange-500' : 'opacity-70 hover:opacity-100'
+                    }`}
+                    onClick={() => setCurrentImageIndex(index)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* Description */}
           <div className="mb-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-3">Description</h2>
