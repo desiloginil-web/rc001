@@ -308,6 +308,18 @@ const TimeWidget: React.FC = () => {
           <span className="text-xs font-semibold text-orange-800">India</span>
           <span className="text-sm font-bold text-orange-900 font-mono">{getIndiaTime()}</span>
         </div>
+        
+        {/* US Time */}
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+          <span className="text-xs font-semibold text-blue-800">US</span>
+          <span className="text-sm font-bold text-blue-900 font-mono">{getUSTime()}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const AdBanners = {
   TopBanner,
   SideBanner,
