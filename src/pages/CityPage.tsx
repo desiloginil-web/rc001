@@ -273,6 +273,16 @@ const CityPage: React.FC = () => {
               <p className="text-gray-600">
                 {filteredListings.length} listings found • Sorted by date posted
               </p>
+              {selectedCategory !== 'all' && (
+                <p className="text-sm text-orange-600">
+                  Filtered by category: {selectedCategory}
+                </p>
+              )}
+              {timeFilter !== 'all' && (
+                <p className="text-sm text-orange-600">
+                  Time filter: {timeFilters.find(f => f.value === timeFilter)?.label}
+                </p>
+              )}
             </div>
 
             {/* Filters */}
@@ -328,6 +338,19 @@ const CityPage: React.FC = () => {
                         {filter.label}
                       </option>
                     ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                  >
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="alphabetical">Alphabetical</option>
                   </select>
                 </div>
 
@@ -408,7 +431,16 @@ const CityPage: React.FC = () => {
           <div className="hidden xl:block w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
               <AdBanners.SideBanner position="right" size="large" />
-              <AdBanners.SideBanner position="right" size="medium" />
+              <div className="bg-white rounded-lg border border-gray-200 p-4">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">Quick Links</h3>
+                <div className="space-y-3">
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Post Free Ad</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Safety Tips</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">How It Works</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Contact Us</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Help Center</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

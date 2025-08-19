@@ -242,6 +242,21 @@ const SearchPage: React.FC = () => {
                 )}
                 {filteredListings.length} listings found
               </p>
+              {selectedCategory !== 'all' && (
+                <p className="text-sm text-orange-600">
+                  Filtered by category: {selectedCategory}
+                </p>
+              )}
+              {selectedCity !== 'all' && (
+                <p className="text-sm text-orange-600">
+                  Filtered by city: {selectedCity}
+                </p>
+              )}
+              {timeFilter !== 'all' && (
+                <p className="text-sm text-orange-600">
+                  Time filter: {timeFilters.find(f => f.value === timeFilter)?.label}
+                </p>
+              )}
             </div>
 
             {/* Filters */}
@@ -388,7 +403,16 @@ const SearchPage: React.FC = () => {
           <div className="hidden xl:block w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
               <AdBanners.SideBanner position="right" size="large" />
-              <AdBanners.SideBanner position="right" size="medium" />
+              <div className="bg-white rounded-lg border border-gray-200 p-4">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">Quick Links</h3>
+                <div className="space-y-3">
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Post Free Ad</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Safety Tips</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">How It Works</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Contact Us</a>
+                  <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Help Center</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

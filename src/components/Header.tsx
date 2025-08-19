@@ -47,6 +47,8 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
         params.set('city', selectedCity);
       }
       navigate(`/search?${params.toString()}`);
+      // Clear search after navigation
+      setSearchQuery('');
     }
   };
 
