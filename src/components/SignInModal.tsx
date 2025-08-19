@@ -22,8 +22,12 @@ const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setIsLoading(false);
       // In real implementation, this would redirect to Google OAuth
-      alert('Google Sign-In would redirect to Google OAuth in production');
-      onClose();
+      if (onSignInSuccess) {
+        onSignInSuccess();
+      } else {
+        alert('Google Sign-In would redirect to Google OAuth in production');
+        onClose();
+      }
     }, 1000);
   };
 

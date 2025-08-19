@@ -93,7 +93,7 @@ const PostAdModal: React.FC<PostAdModalProps> = ({ isOpen, onClose, isLoggedIn =
               <button
                 onClick={() => {
                   onClose();
-                  // This would trigger the sign in modal in a real app
+                  // This is now handled by the parent component
                 }}
                 className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200"
               >
