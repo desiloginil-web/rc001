@@ -620,6 +620,9 @@ const CategoryPage: React.FC = () => {
               <div className="bg-white rounded-lg border border-gray-200 p-4">
             <AdBanners.BullionWidget />
             <AdBanners.TimeWidget />
+             </div>
+           </div>
+         </div>
           </div>
         </div>
       </main>
