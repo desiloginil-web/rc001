@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, MapPin, User, Plus, Cloud, Home, Briefcase, Car, ShoppingBag, Wrench, GraduationCap, Calendar, Heart } from 'lucide-react';
+import { Search, Menu, X, MapPin, User, Plus, Cloud, Home, Briefcase, Car, ShoppingBag, Wrench, GraduationCap, Calendar, Heart, TrendingUp } from 'lucide-react';
 import SignInModal from './SignInModal';
 
 interface HeaderProps {
@@ -51,7 +51,10 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-4">
             {/* Weather Widget - Desktop */}
-            <WeatherWidget />
+            <div className="flex items-center space-x-3">
+              <WeatherWidget />
+              <ScrollingWidgets />
+            </div>
             <button
               onClick={onPostAd}
               className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-2.5 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 flex items-center space-x-2 font-semibold text-sm"
@@ -141,13 +144,176 @@ const WeatherWidget: React.FC = () => {
   const currentCity = cities[currentCityIndex];
 
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg">
+    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg min-w-[140px]">
       <div className="flex items-center">
         <Cloud className="h-4 w-4 mr-2" />
         <div className="text-xs">
           <div className="font-semibold">{currentCity.name}</div>
           <div className="text-xs opacity-90">{currentCity.temp}</div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+// Scrolling Widgets Component
+const ScrollingWidgets: React.FC = () => {
+  const [currentWidgetIndex, setCurrentWidgetIndex] = useState(0);
+  const [prices, setPrices] = useState({
+    gold: { price: 2045.50, change: +12.30, changePercent: +0.61 },
+    silver: { price: 24.85, change: -0.15, changePercent: -0.60 }
+  });
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentAdIndex, setCurrentAdIndex] = useState(0);
+
+  const ads = [
+    {
+      title: "Premium Business Listing",
+      subtitle: "Boost your visibility",
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      title: "Featured Ad Placement",
+      subtitle: "Get noticed faster",
+      color: "from-green-500 to-green-600"
+    },
+    {
+      title: "Professional Services",
+      subtitle: "Connect with experts",
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      title: "Community Events",
+      subtitle: "Stay connected",
+      color: "from-pink-500 to-pink-600"
+    }
+  ];
+
+  // Widget cycling
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWidgetIndex((prevIndex) => (prevIndex + 1) % 4); // 4 widgets total
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Price updates
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setPrices(prev => ({
+        gold: {
+          price: prev.gold.price + (Math.random() - 0.5) * 5,
+          change: (Math.random() - 0.5) * 20,
+          changePercent: (Math.random() - 0.5) * 2
+        },
+        silver: {
+          price: prev.silver.price + (Math.random() - 0.5) * 0.5,
+          change: (Math.random() - 0.5) * 2,
+          changePercent: (Math.random() - 0.5) * 3
+        }
+      }));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Time updates
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Ad cycling
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentAdIndex((prevIndex) => (prevIndex + 1) % ads.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [ads.length]);
+
+  const getIndiaTime = () => {
+    return new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(currentTime);
+  };
+
+  const getUSTime = () => {
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(currentTime);
+  };
+
+  const renderWidget = () => {
+    switch (currentWidgetIndex) {
+      case 0: // Bullion Widget
+        return (
+          <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2 rounded-lg min-w-[200px]">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex items-center space-x-2">
+                <TrendingUp className="h-3 w-3" />
+                <span className="font-semibold">Gold</span>
+                <span className="font-bold">${prices.gold.price.toFixed(0)}</span>
+                <span className={prices.gold.change >= 0 ? 'text-green-200' : 'text-red-200'}>
+                  {prices.gold.change >= 0 ? '↗' : '↘'}{Math.abs(prices.gold.changePercent).toFixed(1)}%
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="font-semibold">Silver</span>
+                <span className="font-bold">${prices.silver.price.toFixed(2)}</span>
+                <span className={prices.silver.change >= 0 ? 'text-green-200' : 'text-red-200'}>
+                  {prices.silver.change >= 0 ? '↗' : '↘'}{Math.abs(prices.silver.changePercent).toFixed(1)}%
+                </span>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 1: // World Clock Widget
+        return (
+          <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-4 py-2 rounded-lg min-w-[180px]">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-orange-300 rounded-full"></div>
+                <span className="font-semibold">India</span>
+                <span className="font-mono font-bold">{getIndiaTime()}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-blue-300 rounded-full"></div>
+                <span className="font-semibold">USA</span>
+                <span className="font-mono font-bold">{getUSTime()}</span>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 2: // Ad Widget 1
+      case 3: // Ad Widget 2
+        const currentAd = ads[currentAdIndex];
+        return (
+          <div className={`bg-gradient-to-r ${currentAd.color} text-white px-4 py-2 rounded-lg min-w-[160px] cursor-pointer hover:opacity-90 transition-opacity`}>
+            <div className="text-xs">
+              <div className="font-semibold">{currentAd.title}</div>
+              <div className="text-xs opacity-90">{currentAd.subtitle}</div>
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="overflow-hidden">
+      <div className="transition-all duration-500 ease-in-out">
+        {renderWidget()}
       </div>
     </div>
   );

@@ -605,10 +605,6 @@ const CategoryPage: React.FC = () => {
             <div className="sticky top-24 space-y-4">
               <AdBanners.SideBanner position="right" size="large" />
               <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <AdBanners.BullionWidget />
-            <AdBanners.TimeWidget />
-             </div>
-           </div>
          </div>
           </div>
       </main>
