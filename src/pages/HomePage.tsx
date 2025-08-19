@@ -31,16 +31,8 @@ const HomePage: React.FC = () => {
         <div className="hidden xl:block w-40 flex-shrink-0">
           <div className="sticky top-24 space-y-2">
             <AdBanners.SideBanner position="right" size="large" />
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">Quick Links</h3>
-              <div className="space-y-3">
-                <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Post Free Ad</a>
-                <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Safety Tips</a>
-                <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">How It Works</a>
-                <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Contact Us</a>
-                <a href="#" className="block text-sm text-gray-600 hover:text-orange-500 transition-colors">Help Center</a>
-              </div>
-            </div>
+            <AdBanners.BullionWidget />
+            <AdBanners.TimeWidget />
           </div>
         </div>
       </div>

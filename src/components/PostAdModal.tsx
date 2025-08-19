@@ -4,9 +4,10 @@ import { X, Upload, Star, Clock, Image as ImageIcon } from 'lucide-react';
 interface PostAdModalProps {
   isOpen: boolean;
   onClose: () => void;
+  isLoggedIn?: boolean;
 }
 
-const PostAdModal: React.FC<PostAdModalProps> = ({ isOpen, onClose }) => {
+const PostAdModal: React.FC<PostAdModalProps> = ({ isOpen, onClose, isLoggedIn = false }) => {
   const [selectedPlan, setSelectedPlan] = useState<'free' | 'featured'>('free');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -68,6 +69,42 @@ const PostAdModal: React.FC<PostAdModalProps> = ({ isOpen, onClose }) => {
   };
 
   if (!isOpen) return null;
+
+  // Show login prompt if user is not logged in
+  if (!isLoggedIn) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-xl max-w-md w-full p-6">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="h-8 w-8 text-orange-500" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Sign In Required</h2>
+            <p className="text-gray-600 mb-6">
+              You need to sign in to post an advertisement. This helps us maintain quality and security for all users.
+            </p>
+            <div className="flex space-x-3">
+              <button
+                onClick={onClose}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  onClose();
+                  // This would trigger the sign in modal in a real app
+                }}
+                className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200"
+              >
+                Sign In
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">

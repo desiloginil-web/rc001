@@ -22,9 +22,10 @@ interface ListingModalProps {
   listing: Listing | null;
   isOpen: boolean;
   onClose: () => void;
+  isLoggedIn?: boolean;
 }
 
-const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose }) => {
+const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose, isLoggedIn = false }) => {
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
   
   if (!isOpen || !listing) return null;
@@ -164,45 +165,62 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose })
           {/* Contact Information */}
           <div className="bg-gray-50 rounded-lg p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-                  <Phone className="h-5 w-5 text-white" />
+            {isLoggedIn ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                    <Phone className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-600">Phone</div>
+                    <div className="font-semibold text-gray-900">
+                      {listing.phone || '(312) 555-0123'}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-sm text-gray-600">Phone</div>
-                  <div className="font-semibold text-gray-900">
-                    {listing.phone || '(312) 555-0123'}
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                    <Mail className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-600">Email</div>
+                    <div className="font-semibold text-gray-900">
+                      {listing.email || 'contact@example.com'}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-                  <Mail className="h-5 w-5 text-white" />
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
                 </div>
-                <div>
-                  <div className="text-sm text-gray-600">Email</div>
-                  <div className="font-semibold text-gray-900">
-                    {listing.email || 'contact@example.com'}
-                  </div>
-                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Sign In to View Contact Info</h3>
+                <p className="text-gray-600 mb-4">
+                  Please sign in to view the seller's contact information and get in touch.
+                </p>
+                <button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 font-semibold">
+                  Sign In to Contact
+                </button>
               </div>
-            </div>
+            )}
             
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 mt-6">
-              <button className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 font-semibold flex items-center justify-center space-x-2">
-                <Phone className="h-5 w-5" />
-                <span>Call Now</span>
-              </button>
-              <button className="flex-1 bg-white border-2 border-orange-500 text-orange-500 px-6 py-3 rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-200 font-semibold flex items-center justify-center space-x-2">
-                <Mail className="h-5 w-5" />
-                <span>Send Email</span>
-              </button>
-              <button className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center">
-                <Heart className="h-5 w-5" />
-              </button>
-            </div>
+            {isLoggedIn && (
+              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <button className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 font-semibold flex items-center justify-center space-x-2">
+                  <Phone className="h-5 w-5" />
+                  <span>Call Now</span>
+                </button>
+                <button className="flex-1 bg-white border-2 border-orange-500 text-orange-500 px-6 py-3 rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-200 font-semibold flex items-center justify-center space-x-2">
+                  <Mail className="h-5 w-5" />
+                  <span>Send Email</span>
+                </button>
+                <button className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center">
+                  <Heart className="h-5 w-5" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

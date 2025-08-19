@@ -10,6 +10,7 @@ import PostAdModal from './components/PostAdModal';
 
 function App() {
   const [isPostAdModalOpen, setIsPostAdModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // This would be managed by your auth system
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -28,6 +29,7 @@ function App() {
       <PostAdModal 
         isOpen={isPostAdModalOpen} 
         onClose={() => setIsPostAdModalOpen(false)} 
+        isLoggedIn={isLoggedIn}
       />
     </div>
   );
