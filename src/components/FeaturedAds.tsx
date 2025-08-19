@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MapPin, Eye, Clock, Star, Heart } from 'lucide-react';
+import ListingModal from './ListingModal';
 
 const FeaturedAds: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedListing, setSelectedListing] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const featuredAds = [
     {
@@ -15,7 +18,10 @@ const FeaturedAds: React.FC = () => {
       views: 245,
       timeAgo: '2 hours ago',
       featured: true,
-      description: 'Join our dynamic team as a Full Stack Developer. React, Node.js experience required.'
+      description: 'Join our dynamic team as a Full Stack Developer. React, Node.js experience required.',
+      postedDate: new Date('2025-01-12'),
+      phone: '(312) 555-0101',
+      email: 'hr@techcompany.com'
     },
     {
       id: 2,
@@ -27,7 +33,10 @@ const FeaturedAds: React.FC = () => {
       views: 189,
       timeAgo: '4 hours ago',
       featured: true,
-      description: 'Beautiful 3-bedroom apartment with modern amenities and city views.'
+      description: 'Beautiful 3-bedroom apartment with modern amenities and city views.',
+      postedDate: new Date('2025-01-12'),
+      phone: '(630) 555-0102',
+      email: 'realtor@apartments.com'
     },
     {
       id: 3,
@@ -39,7 +48,10 @@ const FeaturedAds: React.FC = () => {
       views: 156,
       timeAgo: '6 hours ago',
       featured: true,
-      description: 'Well-maintained Honda Accord with low mileage. Single owner.'
+      description: 'Well-maintained Honda Accord with low mileage. Single owner.',
+      postedDate: new Date('2025-01-11'),
+      phone: '(630) 555-0103',
+      email: 'seller@cars.com'
     },
     {
       id: 4,
@@ -51,7 +63,10 @@ const FeaturedAds: React.FC = () => {
       views: 98,
       timeAgo: '8 hours ago',
       featured: false,
-      description: 'Learn Bharatanatyam from certified instructor. All ages welcome.'
+      description: 'Learn Bharatanatyam from certified instructor. All ages welcome.',
+      postedDate: new Date('2025-01-11'),
+      phone: '(309) 555-0104',
+      email: 'dance@classes.com'
     },
     {
       id: 5,
@@ -63,7 +78,10 @@ const FeaturedAds: React.FC = () => {
       views: 134,
       timeAgo: '12 hours ago',
       featured: true,
-      description: 'Professional wedding photography with Indian cultural expertise.'
+      description: 'Professional wedding photography with Indian cultural expertise.',
+      postedDate: new Date('2025-01-10'),
+      phone: '(309) 555-0105',
+      email: 'photo@weddings.com'
     },
     {
       id: 6,
@@ -75,7 +93,10 @@ const FeaturedAds: React.FC = () => {
       views: 267,
       timeAgo: '1 day ago',
       featured: false,
-      description: 'MacBook Pro 14" with M1 Pro chip. Barely used, includes original box.'
+      description: 'MacBook Pro 14" with M1 Pro chip. Barely used, includes original box.',
+      postedDate: new Date('2025-01-09'),
+      phone: '(217) 555-0106',
+      email: 'seller@electronics.com'
     }
   ];
 
@@ -89,6 +110,16 @@ const FeaturedAds: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [featuredAds.length]);
+
+  const handleAdClick = (ad) => {
+    setSelectedListing(ad);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedListing(null);
+  };
 
   return (
     <section className="py-3">
@@ -115,6 +146,7 @@ const FeaturedAds: React.FC = () => {
             <div
               key={ad.id}
               className="flex-shrink-0 w-1/4 min-w-0 group bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer"
+              onClick={() => handleAdClick(ad)}
             >
               {/* Image Container */}
               <div className="relative overflow-hidden">
@@ -273,6 +305,13 @@ const FeaturedAds: React.FC = () => {
           Load More Ads
         </button>
       </div>
+
+      {/* Listing Modal */}
+      <ListingModal 
+        listing={selectedListing}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 };
