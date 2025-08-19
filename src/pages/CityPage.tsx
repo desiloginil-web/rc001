@@ -235,9 +235,16 @@ const CityPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Mobile Ad Banner */}
-      <div className="lg:hidden bg-white border-b border-gray-200">
+      <div className="md:hidden bg-white border-b border-gray-200">
         <div className="px-4 py-2">
           <AdBanners.MobileBanner />
+        </div>
+      </div>
+
+      {/* Tablet Ad Banner */}
+      <div className="hidden md:block lg:hidden bg-white border-b border-gray-200">
+        <div className="px-4 py-2">
+          <AdBanners.FlippingAd size="medium" />
         </div>
       </div>
 
@@ -289,19 +296,8 @@ const CityPage: React.FC = () => {
 
             {/* Filters */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
-              {/* Filter Toggle for Mobile */}
-              <div className="lg:hidden mb-4">
-                <button
-                  onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-orange-500 transition-colors"
-                >
-                  <SlidersHorizontal className="h-5 w-5" />
-                  <span>Filters</span>
-                </button>
-              </div>
-
-              {/* Filter Dropdowns */}
-              <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 ${showFilters || window.innerWidth >= 1024 ? 'block' : 'hidden lg:grid'}`}>
+              {/* Filter Dropdowns - Single Line */}
+              <div className="flex flex-wrap gap-4 items-end">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
                   <select
@@ -356,14 +352,14 @@ const CityPage: React.FC = () => {
                   </select>
                 </div>
 
-                <div className="flex items-end">
+                <div>
                   <button
                     onClick={() => {
                       setSelectedCategory('all');
                       setTimeFilter('all');
                       setSortBy('newest');
                     }}
-                    className="w-full px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                   >
                     Clear Filters
                   </button>

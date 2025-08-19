@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-4">
             {/* Weather Widget - Desktop */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 min-w-[400px]">
               <WeatherWidget />
               <ScrollingWidgets />
             </div>
