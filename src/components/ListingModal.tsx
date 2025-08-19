@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, MapPin, Eye, Clock, Star, Heart, Phone, Mail, Calendar } from 'lucide-react';
+import { X, MapPin, Eye, Clock, Star, Heart, Phone, Mail, Calendar, User } from 'lucide-react';
 
 interface Listing {
   id: number;

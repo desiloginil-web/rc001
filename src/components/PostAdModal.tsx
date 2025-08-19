@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Upload, Star, Clock, Image as ImageIcon } from 'lucide-react';
+import { X, Upload, Star, Clock, Image as ImageIcon, User } from 'lucide-react';
 
 interface PostAdModalProps {
   isOpen: boolean;
