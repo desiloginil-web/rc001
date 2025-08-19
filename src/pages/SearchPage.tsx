@@ -402,7 +402,8 @@ const SearchPage: React.FC = () => {
           {/* Right Sidebar with Ads */}
           <div className="hidden xl:block w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
-              <AdBanners.SideBanner position="right" size="large" />
+              <AdBanners.FlippingAd size="large" />
+              <AdBanners.FlippingAd size="small" />
             </div>
           </div>
         </div>
