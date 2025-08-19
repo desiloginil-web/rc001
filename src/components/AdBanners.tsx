@@ -362,7 +362,9 @@ const AdBanners = {
   InlineBanner,
   BottomBanner,
   MobileBanner,
-  RecentListings
+  RecentListings,
+  BullionWidget,
+  TimeWidget
 };
 
 export default AdBanners;
