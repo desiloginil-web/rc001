@@ -5,11 +5,13 @@ import SignInModal from './SignInModal';
 
 interface HeaderProps {
   onPostAd: () => void;
+  onSignIn: () => void;
+  isLoggedIn: boolean;
+  onSignOut: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
+const Header: React.FC<HeaderProps> = ({ onPostAd, onSignIn, isLoggedIn, onSignOut }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const navigationPages = [
     { name: 'Home', path: '/', icon: Home },
@@ -63,11 +65,11 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
               <span>Post Ad</span>
             </button>
             <button
-              onClick={() => setIsSignInModalOpen(true)}
+              onClick={isLoggedIn ? onSignOut : onSignIn}
               className="flex items-center space-x-2 text-gray-700 hover:text-orange-500 transition-colors"
             >
               <User className="h-5 w-5" />
-              <span className="text-sm">Sign In</span>
+              <span className="text-sm">{isLoggedIn ? 'Sign Out' : 'Sign In'}</span>
             </button>
           </div>
 
@@ -96,22 +98,16 @@ const Header: React.FC<HeaderProps> = ({ onPostAd }) => {
                 <span>Post Ad</span>
               </button>
               <button
-                onClick={() => setIsSignInModalOpen(true)}
+                onClick={isLoggedIn ? onSignOut : onSignIn}
                 className="w-full flex items-center justify-center space-x-2 text-gray-700 hover:text-orange-500 transition-colors py-2"
               >
                 <User className="h-5 w-5" />
-                <span className="text-sm">Sign In</span>
+                <span className="text-sm">{isLoggedIn ? 'Sign Out' : 'Sign In'}</span>
               </button>
             </div>
           </div>
         )}
       </div>
-      
-      {/* Sign In Modal */}
-      <SignInModal 
-        isOpen={isSignInModalOpen} 
-        onClose={() => setIsSignInModalOpen(false)} 
-      />
     </header>
   );
 };
