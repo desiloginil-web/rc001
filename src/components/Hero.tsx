@@ -49,18 +49,26 @@ const Hero: React.FC = () => {
               <Link
                 to={`/city/${encodeURIComponent(city.name)}`}
                 key={index}
-                className="group relative overflow-hidden rounded-lg bg-white shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2"
+                className="group relative overflow-hidden rounded-lg bg-white shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 hover:scale-105"
               >
                 <div className="relative">
                   <img
                     src={city.image}
                     alt={city.name}
-                    className="w-full h-24 object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-24 object-cover group-hover:scale-125 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/60" />
                   <div className="absolute bottom-0 left-0 right-0 p-1">
-                    <h3 className="text-white font-bold text-xs mb-0.5 truncate">{city.name}</h3>
-                    <p className="text-white/90 text-xs truncate">{city.count}</p>
+                    <h3 className="text-white font-bold text-xs mb-0.5 truncate group-hover:text-orange-200 transition-colors">{city.name}</h3>
+                    <p className="text-white/90 text-xs truncate group-hover:text-orange-100 transition-colors">{city.count}</p>
+                  </div>
+                  
+                  {/* Hover overlay with enhanced visual feedback */}
+                  <div className="absolute inset-0 bg-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Click indicator */}
+                  <div className="absolute top-1 right-1 w-4 h-4 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-orange-500 text-xs">→</span>
                   </div>
                 </div>
               </Link>
