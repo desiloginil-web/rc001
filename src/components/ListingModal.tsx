@@ -129,33 +129,6 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, isOpen, onClose })
               {/* Thumbnail Images */}
               <div className="grid grid-cols-4 gap-2">
                 {additionalImages.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`relative overflow-hidden rounded-lg ${
-                      currentImageIndex === index ? 'ring-2 ring-orange-500' : ''
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${listing.title} ${index + 1}`}
-                      className="w-full h-20 object-cover hover:opacity-80 transition-opacity"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-                  <img
-                    src={image}
-                    alt={`${listing.title} ${index + 2}`}
-                    className="w-full h-32 object-cover rounded-lg"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Description */}
           <div className="mb-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-3">Description</h2>
