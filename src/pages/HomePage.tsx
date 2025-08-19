@@ -31,6 +31,7 @@ const HomePage: React.FC = () => {
         <div className="hidden xl:block w-40 flex-shrink-0">
           <div className="sticky top-24 space-y-2">
             <AdBanners.SideBanner position="right" size="large" />
+            <AdBanners.RecentListings />
           </div>
         </div>
       </div>
