@@ -215,13 +215,20 @@ const SearchPage: React.FC = () => {
       </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex gap-6">
+        <div className="flex gap-2 md:gap-4 lg:gap-6">
           {/* Left Sidebar with Ads */}
-          <div className="hidden lg:block w-48 flex-shrink-0">
+          <div className="w-20 md:w-32 lg:w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
-              <AdBanners.SideBanner position="left" size="large" />
-              <AdBanners.FlippingAd size="large" />
-              <AdBanners.FlippingAd size="medium" />
+              <div className="block lg:hidden">
+                <AdBanners.FlippingAd size="small" />
+              </div>
+              <div className="hidden lg:block">
+                <AdBanners.SideBanner position="left" size="large" />
+              </div>
+              <AdBanners.FlippingAd size={window.innerWidth >= 1024 ? "large" : "small"} />
+              <div className="hidden md:block">
+                <AdBanners.FlippingAd size={window.innerWidth >= 1024 ? "medium" : "small"} />
+              </div>
             </div>
           </div>
 
@@ -412,9 +419,9 @@ const SearchPage: React.FC = () => {
           </div>
 
           {/* Right Sidebar with Ads */}
-          <div className="hidden xl:block w-48 flex-shrink-0">
+          <div className="w-20 md:w-32 xl:w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
-              <AdBanners.FlippingAd size="large" />
+              <AdBanners.FlippingAd size={window.innerWidth >= 1280 ? "large" : "small"} />
               <AdBanners.FlippingAd size="small" />
             </div>
           </div>
