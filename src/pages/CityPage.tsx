@@ -248,20 +248,20 @@ const CityPage: React.FC = () => {
               <div className="flex items-center mb-4">
                 <Link 
                   to="/" 
-                  className="flex items-center text-orange-500 hover:text-orange-600 transition-colors mr-4"
+                 className="flex items-center text-orange-500 hover:text-orange-600 transition-colors mr-4 text-sm"
                 >
-                  <ArrowLeft className="h-5 w-5 mr-1" />
-                  <span className="text-sm font-medium">Back to Home</span>
+                 <ArrowLeft className="h-4 w-4 mr-1" />
+                 <span className="font-medium">Back</span>
                 </Link>
               </div>
               
-              <div className="flex items-center mb-2">
-                <MapPin className="h-6 w-6 text-orange-500 mr-2" />
-                <h1 className="text-2xl font-bold text-gray-900">
+             <div className="flex items-center mb-1">
+               <MapPin className="h-5 w-5 text-orange-500 mr-2" />
+               <h1 className="text-xl font-bold text-gray-900">
                   Listings in {cityName}
                 </h1>
               </div>
-              <p className="text-gray-600">
+             <p className="text-sm text-gray-600">
                 {filteredListings.length} listings found • Sorted by date posted
               </p>
               {selectedCategory !== 'all' && (
@@ -272,9 +272,9 @@ const CityPage: React.FC = () => {
             </div>
 
             {/* Filters */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 mb-4">
               {/* Search Bar */}
-              <div className="mb-4">
+             <div className="mb-3">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <input
@@ -282,30 +282,30 @@ const CityPage: React.FC = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search listings..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-500 text-sm"
                   />
                 </div>
               </div>
               
               {/* Filter Dropdowns - Single Line */}
-              <div className="flex flex-wrap gap-4 items-end">
+             <div className="flex flex-wrap gap-3 items-end">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                 <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
                   <select
                     value={cityName || 'Chicago'}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-600 text-sm"
+                   className="px-3 py-1.5 border border-gray-300 rounded-md bg-gray-100 text-gray-600 text-sm"
                   >
                     <option value={cityName}>{cityName}</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                 <label className="block text-xs font-medium text-gray-700 mb-1">Category</label>
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                   className="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-500 text-sm"
                   >
                     {categories.map(category => (
                       <option key={category} value={category}>
@@ -316,11 +316,11 @@ const CityPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                 <label className="block text-xs font-medium text-gray-700 mb-1">Sort By</label>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                   className="px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-500 text-sm"
                   >
                     <option value="newest">Newest First</option>
                     <option value="oldest">Oldest First</option>
@@ -335,7 +335,7 @@ const CityPage: React.FC = () => {
                       setSelectedCategory('all');
                       setSortBy('newest');
                     }}
-                    className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                   className="px-3 py-1.5 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                   >
                     Clear Filters
                   </button>
@@ -344,12 +344,12 @@ const CityPage: React.FC = () => {
             </div>
 
             {/* Listings List - Single Line Titles */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 max-h-[70vh] overflow-y-auto">
+           <div className="bg-white rounded-lg shadow-sm border border-gray-200 max-h-[75vh] overflow-y-auto">
               <div className="divide-y divide-gray-200">
                 {filteredListings.map((listing, index) => (
                   <div key={listing.id}>
                     <div 
-                      className="p-4 hover:bg-gray-50 cursor-pointer transition-colors group"
+                     className="p-3 hover:bg-gray-50 cursor-pointer transition-colors group"
                       onClick={() => handleListingClick(listing)}
                     >
                       <div className="flex items-center justify-between">
@@ -380,7 +380,7 @@ const CityPage: React.FC = () => {
 
                     {/* Inline Ad every 5 listings */}
                     {(index + 1) % 5 === 0 && index < filteredListings.length - 1 && (
-                      <div className="p-4 bg-gray-50 border-t border-b border-gray-200">
+                     <div className="p-2 bg-gray-50 border-t border-b border-gray-200">
                         <AdBanners.InlineBanner />
                       </div>
                     )}
@@ -390,11 +390,11 @@ const CityPage: React.FC = () => {
 
               {/* No Results */}
               {filteredListings.length === 0 && (
-                <div className="text-center py-12">
+               <div className="text-center py-8">
                   <div className="text-gray-400 mb-4">
-                    <MapPin className="h-16 w-16 mx-auto" />
+                   <MapPin className="h-12 w-12 mx-auto" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No listings found</h3>
+                 <h3 className="text-base font-semibold text-gray-900 mb-2">No listings found</h3>
                   <p className="text-gray-600">Try adjusting your filters to see more results.</p>
                 </div>
               )}
