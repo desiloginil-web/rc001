@@ -154,12 +154,6 @@ const WeatherWidget: React.FC = () => {
 
 // Scrolling Widgets Component
 const ScrollingWidgets: React.FC = () => {
-  const [currentWidgetIndex, setCurrentWidgetIndex] = useState(0);
-  const [prices, setPrices] = useState({
-    gold: { price: 2045.50, change: +12.30, changePercent: +0.61 },
-    silver: { price: 24.85, change: -0.15, changePercent: -0.60 }
-  });
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
 
   const deals = [
@@ -201,41 +195,6 @@ const ScrollingWidgets: React.FC = () => {
     }
   ];
 
-  // Widget cycling
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWidgetIndex((prevIndex) => (prevIndex + 1) % 3); // 3 widgets total
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Price updates
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setPrices(prev => ({
-        gold: {
-          price: prev.gold.price + (Math.random() - 0.5) * 5,
-          change: (Math.random() - 0.5) * 20,
-          changePercent: (Math.random() - 0.5) * 2
-        },
-        silver: {
-          price: prev.silver.price + (Math.random() - 0.5) * 0.5,
-          change: (Math.random() - 0.5) * 2,
-          changePercent: (Math.random() - 0.5) * 3
-        }
-      }));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Time updates
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   // Deal cycling
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -244,103 +203,29 @@ const ScrollingWidgets: React.FC = () => {
     return () => clearInterval(interval);
   }, [deals.length]);
 
-  const getIndiaTime = () => {
-    return new Intl.DateTimeFormat('en-IN', {
-      timeZone: 'Asia/Kolkata',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    }).format(currentTime);
-  };
-
-  const getUSTime = () => {
-    return new Intl.DateTimeFormat('en-US', {
-      timeZone: 'America/Chicago',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    }).format(currentTime);
-  };
-
-  const renderWidget = () => {
-    switch (currentWidgetIndex) {
-      case 0: // Bullion Widget
-        return (
-          <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2 rounded-lg min-w-[200px]">
-            <div className="flex items-center justify-between text-xs">
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="h-3 w-3" />
-                <span className="font-semibold">Gold</span>
-                <span className="font-bold">${prices.gold.price.toFixed(0)}</span>
-                <span className={prices.gold.change >= 0 ? 'text-green-200' : 'text-red-200'}>
-                  {prices.gold.change >= 0 ? '↗' : '↘'}{Math.abs(prices.gold.changePercent).toFixed(1)}%
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="font-semibold">Silver</span>
-                <span className="font-bold">${prices.silver.price.toFixed(2)}</span>
-                <span className={prices.silver.change >= 0 ? 'text-green-200' : 'text-red-200'}>
-                  {prices.silver.change >= 0 ? '↗' : '↘'}{Math.abs(prices.silver.changePercent).toFixed(1)}%
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      
-      case 1: // World Clock Widget
-        return (
-          <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-4 py-2 rounded-lg min-w-[180px]">
-            <div className="flex items-center justify-between text-xs">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-orange-300 rounded-full"></div>
-                <span className="font-semibold">India</span>
-                <span className="font-mono font-bold">{getIndiaTime()}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-blue-300 rounded-full"></div>
-                <span className="font-semibold">USA</span>
-                <span className="font-mono font-bold">{getUSTime()}</span>
-              </div>
-            </div>
-          </div>
-        );
-      
-      case 2: // Deals & Coupons Widget
-        const currentDeal = deals[currentDealIndex];
-        return (
-          <div className={`relative bg-gradient-to-r ${currentDeal.color} text-white px-4 py-2 rounded-lg min-w-[180px] cursor-pointer hover:opacity-90 transition-all duration-300 overflow-hidden`}>
-            {/* Illumination Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
-            
-            {/* NEW Badge */}
-            <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full animate-pulse">
-              NEW
-            </div>
-            
-            {/* Content */}
-            <div className="relative z-10">
-              <div className="flex items-center justify-between">
-                <div className="text-xs">
-                  <div className="font-semibold">{currentDeal.title}</div>
-                  <div className="text-xs opacity-90">{currentDeal.subtitle}</div>
-                </div>
-                <div className="bg-white/20 text-white font-bold text-xs px-2 py-1 rounded-full">
-                  {currentDeal.discount}
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      
-      default:
-        return null;
-    }
-  };
+  const currentDeal = deals[currentDealIndex];
 
   return (
-    <div className="overflow-hidden">
-      <div className="transition-all duration-500 ease-in-out">
-        {renderWidget()}
+    <div className="relative bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-lg min-w-[200px] cursor-pointer hover:opacity-90 transition-all duration-300 overflow-hidden">
+      {/* Illumination Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
+      
+      {/* NEW Badge - Slanted Left */}
+      <div className="absolute -top-2 -left-2 bg-red-500 text-white text-xs font-bold px-3 py-1 transform -rotate-12 shadow-lg">
+        NEW
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <div className="flex items-center justify-between">
+          <div className="text-xs">
+            <div className="font-bold text-sm">Deals & Coupons</div>
+            <div className="text-xs opacity-90">{currentDeal.subtitle}</div>
+          </div>
+          <div className="bg-white/20 text-white font-bold text-xs px-2 py-1 rounded-full">
+            {currentDeal.discount}
+          </div>
+        </div>
       </div>
     </div>
   );

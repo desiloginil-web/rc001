@@ -71,7 +71,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
   const recentListings: RecentListing[] = [
     { 
       id: 1, 
-      title: 'Software Engineer Position',
+      title: 'Senior Software Engineer - React/Node.js',
       category: 'Jobs',
       price: '$95,000',
       location: 'Chicago, IL',
@@ -86,7 +86,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 2, 
-      title: '3BR Downtown Apartment',
+      title: 'Beautiful 3BR Downtown Condo',
       category: 'Real Estate',
       price: '$2,200/month',
       location: 'Naperville, IL',
@@ -99,7 +99,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 3, 
-      title: 'Honda Civic 2020',
+      title: 'Honda Civic 2020 - Excellent Condition',
       category: 'Vehicles',
       price: '$22,500',
       location: 'Aurora, IL',
@@ -112,7 +112,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 4, 
-      title: 'Wedding Photography',
+      title: 'Professional Wedding Photography Services',
       category: 'Services',
       price: '$1,200',
       location: 'Peoria, IL',
@@ -125,7 +125,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 5, 
-      title: 'Math Tutoring Services',
+      title: 'Math Tutoring - All Levels Available',
       category: 'Education',
       price: '$40/hour',
       location: 'Springfield, IL',
@@ -138,7 +138,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 6, 
-      title: 'MacBook Pro 2021',
+      title: 'MacBook Pro 2021 - Like New Condition',
       category: 'Buy & Sell',
       price: '$1,800',
       location: 'Rockford, IL',
@@ -151,7 +151,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 7, 
-      title: 'Indian Dance Classes',
+      title: 'Indian Classical Dance Classes - Bharatanatyam',
       category: 'Education',
       price: '$60/month',
       location: 'Urbana-Champaign, IL',
@@ -164,7 +164,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 8, 
-      title: 'House Cleaning Service',
+      title: 'Professional House Cleaning Service',
       category: 'Services',
       price: '$80/visit',
       location: 'Bloomington-Normal, IL',
@@ -177,7 +177,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 9, 
-      title: 'Yoga Instructor Position',
+      title: 'Yoga Instructor Position - RYT-200 Required',
       category: 'Jobs',
       price: '$50/hour',
       location: 'Chicago, IL',
@@ -190,7 +190,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
     },
     { 
       id: 10, 
-      title: 'Catering Services',
+      title: 'Indian Catering Services for All Events',
       category: 'Services',
       price: '$15/person',
       location: 'Aurora, IL',
@@ -215,7 +215,10 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-3">
-      <h3 className="text-sm font-semibold mb-3 text-gray-800">Recent Listings</h3>
+      <h3 className="text-sm font-semibold mb-3 text-gray-800 flex items-center">
+        <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+        Recent Listings
+      </h3>
       <div className="relative overflow-hidden h-64">
         <div 
           className="transition-transform duration-500 ease-in-out"
@@ -224,18 +227,22 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
           {recentListings.map((listing) => (
             <div 
               key={listing.id} 
-              className="h-6 flex items-center justify-between py-0.5 mb-0.5 cursor-pointer hover:bg-gray-50 transition-colors rounded px-1"
+              className="h-9 flex items-center justify-between py-1 mb-1 cursor-pointer hover:bg-gray-50 transition-colors rounded px-2 border-l-2 border-transparent hover:border-orange-500"
               onClick={() => onListingClick && onListingClick(listing)}
             >
               <div className="flex-1 min-w-0">
-                <h4 className="text-xs font-medium text-gray-900 truncate hover:text-orange-600 transition-colors">
+                <h4 className="text-sm font-medium text-gray-900 truncate hover:text-orange-600 transition-colors leading-tight">
                   {listing.title}
                 </h4>
-              </div>
-              <div className="flex items-center space-x-1 text-xs text-gray-500 ml-2">
-                <span className="font-semibold text-orange-600">{listing.price}</span>
-                <span>•</span>
-                <span>{listing.timeAgo}</span>
+                <div className="text-xs text-gray-500 truncate">
+                  {listing.category} • {listing.location}
+                </div>
+                <div className="text-xs text-gray-500 truncate">
+                  {listing.category} • {listing.location}
+                </div>
+              <div className="flex flex-col items-end text-xs text-gray-500 ml-2">
+                <span className="font-semibold text-orange-600 text-sm">{listing.price}</span>
+                <span className="text-xs">{listing.timeAgo}</span>
               </div>
             </div>
           ))}
