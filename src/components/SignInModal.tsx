@@ -4,9 +4,10 @@ import { X, Mail, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 interface SignInModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSignInSuccess: () => void;
 }
 
-const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose }) => {
+const SignInModal: React.FC<SignInModalProps> = ({ isOpen, onClose, onSignInSuccess }) => {
   const [currentStep, setCurrentStep] = useState<'signin' | 'verify' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
