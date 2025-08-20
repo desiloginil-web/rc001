@@ -237,9 +237,7 @@ const RecentListings: React.FC<RecentListingsProps> = ({ onListingClick }) => {
                 <div className="text-xs text-gray-500 truncate">
                   {listing.category} • {listing.location}
                 </div>
-                <div className="text-xs text-gray-500 truncate">
-                  {listing.category} • {listing.location}
-                </div>
+              </div>
               <div className="flex flex-col items-end text-xs text-gray-500 ml-2">
                 <span className="font-semibold text-orange-600 text-sm">{listing.price}</span>
                 <span className="text-xs">{listing.timeAgo}</span>
