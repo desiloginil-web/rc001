@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, SlidersHorizontal, Eye, Clock, Star } from 'lucide-react';
+import { ArrowLeft, SlidersHorizontal, Eye, Clock, Star, Search } from 'lucide-react';
 import AdBanners from '../components/AdBanners';
 import ListingModal from '../components/ListingModal';
 
