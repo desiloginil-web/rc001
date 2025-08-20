@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, SlidersHorizontal, Eye, Clock, Star, MapPin } from 'lucide-react';
+import { ArrowLeft, SlidersHorizontal, Eye, Clock, Star, MapPin, Search } from 'lucide-react';
 import AdBanners from '../components/AdBanners';
 import ListingModal from '../components/ListingModal';
 
@@ -22,8 +22,8 @@ interface Listing {
 
 const CityPage: React.FC = () => {
   const { cityName } = useParams<{ cityName: string }>();
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [timeFilter, setTimeFilter] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
@@ -33,14 +33,6 @@ const CityPage: React.FC = () => {
     'all', 'Jobs', 'Real Estate', 'Vehicles', 'Buy & Sell', 'Services', 
     'Education', 'Community Events', 'Health & Wellness', 'Matrimonial',
     'Food & Dining', 'Entertainment'
-  ];
-
-  const timeFilters = [
-    { value: 'all', label: 'All Time' },
-    { value: '1week', label: 'Last Week' },
-    { value: '4weeks', label: 'Last 4 Weeks' },
-    { value: '3months', label: 'Last 3 Months' },
-    { value: '6months', label: 'Last 6 Months' }
   ];
 
   // Mock listings data for the city
@@ -181,33 +173,16 @@ const CityPage: React.FC = () => {
 
   const filteredListings = useMemo(() => {
     let filtered = mockListings.filter(listing => {
+      // Search query filter
+      const matchesSearch = searchQuery === '' || 
+        listing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        listing.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        listing.category.toLowerCase().includes(searchQuery.toLowerCase());
+      
       // Category filter
       const matchesCategory = selectedCategory === 'all' || listing.category === selectedCategory;
       
-      // Time filter
-      let matchesTime = true;
-      if (timeFilter !== 'all') {
-        const now = new Date();
-        const listingDate = listing.postedDate;
-        const daysDiff = Math.floor((now.getTime() - listingDate.getTime()) / (1000 * 60 * 60 * 24));
-        
-        switch (timeFilter) {
-          case '1week':
-            matchesTime = daysDiff <= 7;
-            break;
-          case '4weeks':
-            matchesTime = daysDiff <= 28;
-            break;
-          case '3months':
-            matchesTime = daysDiff <= 90;
-            break;
-          case '6months':
-            matchesTime = daysDiff <= 180;
-            break;
-        }
-      }
-      
-      return matchesCategory && matchesTime;
+      return matchesSearch && matchesCategory;
     });
 
     // Sort listings by date posted (newest first by default)
@@ -220,7 +195,7 @@ const CityPage: React.FC = () => {
     }
 
     return filtered;
-  }, [selectedCategory, timeFilter, sortBy]);
+  }, [searchQuery, selectedCategory, sortBy]);
 
   const handleListingClick = (listing: Listing) => {
     setSelectedListing(listing);
@@ -294,15 +269,24 @@ const CityPage: React.FC = () => {
                   Filtered by category: {selectedCategory}
                 </p>
               )}
-              {timeFilter !== 'all' && (
-                <p className="text-sm text-orange-600">
-                  Time filter: {timeFilters.find(f => f.value === timeFilter)?.label}
-                </p>
-              )}
             </div>
 
             {/* Filters */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+              {/* Search Bar */}
+              <div className="mb-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search listings..."
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                  />
+                </div>
+              </div>
+              
               {/* Filter Dropdowns - Single Line */}
               <div className="flex flex-wrap gap-4 items-end">
                 <div>
@@ -332,21 +316,6 @@ const CityPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Posted</label>
-                  <select
-                    value={timeFilter}
-                    onChange={(e) => setTimeFilter(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
-                  >
-                    {timeFilters.map(filter => (
-                      <option key={filter.value} value={filter.value}>
-                        {filter.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
                   <select
                     value={sortBy}
@@ -362,8 +331,8 @@ const CityPage: React.FC = () => {
                 <div>
                   <button
                     onClick={() => {
+                      setSearchQuery('');
                       setSelectedCategory('all');
-                      setTimeFilter('all');
                       setSortBy('newest');
                     }}
                     className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
