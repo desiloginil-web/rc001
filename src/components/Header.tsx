@@ -160,36 +160,52 @@ const ScrollingWidgets: React.FC = () => {
     silver: { price: 24.85, change: -0.15, changePercent: -0.60 }
   });
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [currentDealIndex, setCurrentDealIndex] = useState(0);
 
-  const ads = [
+  const deals = [
     {
-      title: "Premium Business Listing",
-      subtitle: "Boost your visibility",
-      color: "from-blue-500 to-blue-600"
+      title: "50% OFF Electronics",
+      subtitle: "Limited time offer",
+      color: "from-blue-500 to-blue-600",
+      discount: "50%"
     },
     {
-      title: "Featured Ad Placement",
-      subtitle: "Get noticed faster",
-      color: "from-green-500 to-green-600"
+      title: "Free Delivery on Orders $50+",
+      subtitle: "No minimum required",
+      color: "from-green-500 to-green-600",
+      discount: "FREE"
     },
     {
-      title: "Professional Services",
-      subtitle: "Connect with experts",
-      color: "from-purple-500 to-purple-600"
+      title: "Buy 2 Get 1 Free",
+      subtitle: "On selected items",
+      color: "from-purple-500 to-purple-600",
+      discount: "B2G1"
     },
     {
-      title: "Community Events",
-      subtitle: "Stay connected",
-      color: "from-pink-500 to-pink-600"
+      title: "30% OFF Services",
+      subtitle: "Professional services",
+      color: "from-pink-500 to-pink-600",
+      discount: "30%"
+    },
+    {
+      title: "Flash Sale - 70% OFF",
+      subtitle: "Today only",
+      color: "from-red-500 to-red-600",
+      discount: "70%"
+    },
+    {
+      title: "Student Discount 25%",
+      subtitle: "Valid student ID required",
+      color: "from-indigo-500 to-indigo-600",
+      discount: "25%"
     }
   ];
 
   // Widget cycling
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentWidgetIndex((prevIndex) => (prevIndex + 1) % 4); // 4 widgets total
-    }, 4000);
+      setCurrentWidgetIndex((prevIndex) => (prevIndex + 1) % 3); // 3 widgets total
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -220,13 +236,13 @@ const ScrollingWidgets: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Ad cycling
+  // Deal cycling
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentAdIndex((prevIndex) => (prevIndex + 1) % ads.length);
+      setCurrentDealIndex((prevIndex) => (prevIndex + 1) % deals.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [ads.length]);
+  }, [deals.length]);
 
   const getIndiaTime = () => {
     return new Intl.DateTimeFormat('en-IN', {
@@ -289,14 +305,29 @@ const ScrollingWidgets: React.FC = () => {
           </div>
         );
       
-      case 2: // Ad Widget 1
-      case 3: // Ad Widget 2
-        const currentAd = ads[currentAdIndex];
+      case 2: // Deals & Coupons Widget
+        const currentDeal = deals[currentDealIndex];
         return (
-          <div className={`bg-gradient-to-r ${currentAd.color} text-white px-4 py-2 rounded-lg min-w-[160px] cursor-pointer hover:opacity-90 transition-opacity`}>
-            <div className="text-xs">
-              <div className="font-semibold">{currentAd.title}</div>
-              <div className="text-xs opacity-90">{currentAd.subtitle}</div>
+          <div className={`relative bg-gradient-to-r ${currentDeal.color} text-white px-4 py-2 rounded-lg min-w-[180px] cursor-pointer hover:opacity-90 transition-all duration-300 overflow-hidden`}>
+            {/* Illumination Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
+            
+            {/* NEW Badge */}
+            <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full animate-pulse">
+              NEW
+            </div>
+            
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="flex items-center justify-between">
+                <div className="text-xs">
+                  <div className="font-semibold">{currentDeal.title}</div>
+                  <div className="text-xs opacity-90">{currentDeal.subtitle}</div>
+                </div>
+                <div className="bg-white/20 text-white font-bold text-xs px-2 py-1 rounded-full">
+                  {currentDeal.discount}
+                </div>
+              </div>
             </div>
           </div>
         );
