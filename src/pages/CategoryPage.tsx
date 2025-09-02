@@ -405,11 +405,11 @@ const CategoryPage: React.FC = () => {
                 <AdBanners.FlippingAd size="small" />
               </div>
               <div className="hidden lg:block">
-                <AdBanners.SideBanner position="left" size="large" />
+                <AdBanners.SideBanner />
               </div>
-              <AdBanners.FlippingAd size={window.innerWidth >= 1024 ? "large" : "small"} />
+              <AdBanners.FlippingAd size="large" />
               <div className="hidden md:block">
-                <AdBanners.FlippingAd size={window.innerWidth >= 1024 ? "medium" : "small"} />
+                <AdBanners.FlippingAd size="medium" />
               </div>
             </div>
           </div>
@@ -577,7 +577,7 @@ const CategoryPage: React.FC = () => {
           {/* Right Sidebar with Ads */}
           <div className="w-20 md:w-32 xl:w-48 flex-shrink-0">
             <div className="sticky top-24 space-y-4">
-              <AdBanners.FlippingAd size={window.innerWidth >= 1280 ? "large" : "small"} />
+              <AdBanners.FlippingAd size="large" />
               <AdBanners.FlippingAd size="small" />
             </div>
           </div>
