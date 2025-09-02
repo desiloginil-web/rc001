@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CityPage from './pages/CityPage';
 import CategoryPage from './pages/CategoryPage';
 import SearchPage from './pages/SearchPage';
+import FeaturedAdsPage from './pages/FeaturedAdsPage';
 import Footer from './components/Footer';
 import PostAdModal from './components/PostAdModal';
 import SignInModal from './components/SignInModal';
@@ -41,6 +42,7 @@ function App() {
         <Route path="/city/:cityName" element={<CityPage />} />
         <Route path="/category/:categoryName" element={<CategoryPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/featured-ads" element={<FeaturedAdsPage />} />
       </Routes>
       
       <Footer />
