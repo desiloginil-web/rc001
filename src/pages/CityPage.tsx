@@ -227,7 +227,7 @@ const CityPage: React.FC = () => {
         <div className="flex gap-2 md:gap-4 lg:gap-6">
           {/* Left Sidebar with Ads */}
           <div className="w-20 md:w-32 lg:w-48 flex-shrink-0">
-            <div className="sticky top-24 space-y-4">
+            <div className="sticky top-24 space-y-4 z-10">
               <div className="block lg:hidden">
                 <AdBanners.FlippingAd size="small" />
               </div>
@@ -403,7 +403,7 @@ const CityPage: React.FC = () => {
 
           {/* Right Sidebar with Ads */}
           <div className="w-20 md:w-32 xl:w-48 flex-shrink-0">
-            <div className="sticky top-24 space-y-4">
+            <div className="sticky top-24 space-y-4 z-10">
               <AdBanners.FlippingAd size="large" />
               <AdBanners.FlippingAd size="small" />
             </div>

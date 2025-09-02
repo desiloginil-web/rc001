@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
         <div className="flex gap-4">
           {/* Left Sidebar with Ads */}
           <div className="hidden lg:block w-48 flex-shrink-0">
-            <div className="sticky top-24 space-y-2">
+            <div className="sticky top-24 space-y-2 z-10">
               <AdBanners.SideBanner />
               <AdBanners.FlippingAd size="large" />
             </div>
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
 
           {/* Right Sidebar with Ads */}
           <div className="hidden xl:block w-48 flex-shrink-0">
-            <div className="sticky top-24 space-y-2">
+            <div className="sticky top-24 space-y-2 z-10">
               <AdBanners.SideBanner />
               <AdBanners.RecentListings onListingClick={handleListingClick} />
             </div>
