@@ -14,6 +14,20 @@ const Hero: React.FC = () => {
     { name: 'Rockford', count: '167 ads', image: 'https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=400' }
   ];
 
+  const categories = [
+    { name: 'Jobs', icon: '💼', color: 'from-blue-500 to-blue-600', count: 1247 },
+    { name: 'Real Estate', icon: '🏠', color: 'from-green-500 to-green-600', count: 856 },
+    { name: 'Vehicles', icon: '🚗', color: 'from-red-500 to-red-600', count: 634 },
+    { name: 'Buy & Sell', icon: '🛍️', color: 'from-purple-500 to-purple-600', count: 923 },
+    { name: 'Services', icon: '🔧', color: 'from-orange-500 to-orange-600', count: 445 },
+    { name: 'Education', icon: '🎓', color: 'from-indigo-500 to-indigo-600', count: 234 },
+    { name: 'Community Events', icon: '📅', color: 'from-pink-500 to-pink-600', count: 167 },
+    { name: 'Health & Wellness', icon: '❤️', color: 'from-teal-500 to-teal-600', count: 189 },
+    { name: 'Matrimonial', icon: '💑', color: 'from-rose-500 to-rose-600', count: 312 },
+    { name: 'Food & Dining', icon: '🍽️', color: 'from-yellow-500 to-yellow-600', count: 156 },
+    { name: 'Entertainment', icon: '🎮', color: 'from-cyan-500 to-cyan-600', count: 98 }
+  ];
+
   // Mock weather data - in production, this would come from a weather API
   const weatherData = {
     city: 'Chicago',
@@ -24,8 +38,8 @@ const Hero: React.FC = () => {
 
   return (
     <section className="pt-2 pb-3">
-      {/* Top Banner with Weather */}
-      <div className="bg-white border-b border-gray-200 mb-6">
+      {/* Top Banner with Weather - Desktop Only */}
+      <div className="bg-white border-b border-gray-200 mb-6 hidden lg:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-center">
             {/* Advertisement Space */}
@@ -48,8 +62,8 @@ const Hero: React.FC = () => {
             {/* Browse by Cities */}
             <div>
               <h2 className="text-sm font-bold text-gray-900 mb-2">Browse by Cities</h2>
-              <div className="grid grid-cols-2 gap-1">
-                {cities.slice(0, 4).map((city, index) => (
+              <div className="grid grid-cols-2 gap-1 max-h-64 overflow-y-auto">
+                {cities.map((city, index) => (
                   <Link
                     to={`/city/${encodeURIComponent(city.name)}`}
                     key={index}
@@ -75,13 +89,8 @@ const Hero: React.FC = () => {
             {/* Browse by Categories */}
             <div>
               <h2 className="text-sm font-bold text-gray-900 mb-2">Browse Categories</h2>
-              <div className="grid grid-cols-2 gap-1">
-                {[
-                  { name: 'Jobs', icon: '💼', color: 'from-blue-500 to-blue-600', count: 1247 },
-                  { name: 'Real Estate', icon: '🏠', color: 'from-green-500 to-green-600', count: 856 },
-                  { name: 'Vehicles', icon: '🚗', color: 'from-red-500 to-red-600', count: 634 },
-                  { name: 'Services', icon: '🔧', color: 'from-orange-500 to-orange-600', count: 445 }
-                ].map((category, index) => (
+              <div className="grid grid-cols-2 gap-1 max-h-64 overflow-y-auto">
+                {categories.map((category, index) => (
                   <Link 
                     to={`/category/${encodeURIComponent(category.name)}`}
                     key={index} 
@@ -118,6 +127,18 @@ const Hero: React.FC = () => {
               </div>
             </div>
             <div className="bg-gradient-to-br from-green-100 to-green-200 border-2 border-dashed border-green-300 rounded-lg flex items-center justify-center text-green-600 font-medium h-20">
+              <div className="text-center">
+                <div className="text-xs font-semibold mb-1">Mobile Banner</div>
+                <div className="text-xs">320 x 50</div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-purple-100 to-purple-200 border-2 border-dashed border-purple-300 rounded-lg flex items-center justify-center text-purple-600 font-medium h-24">
+              <div className="text-center">
+                <div className="text-xs font-semibold mb-1">Mobile Ad Space</div>
+                <div className="text-xs">300 x 200</div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-red-100 to-red-200 border-2 border-dashed border-red-300 rounded-lg flex items-center justify-center text-red-600 font-medium h-20">
               <div className="text-center">
                 <div className="text-xs font-semibold mb-1">Mobile Banner</div>
                 <div className="text-xs">320 x 50</div>
@@ -168,16 +189,7 @@ const Hero: React.FC = () => {
         <div>
           <h2 className="text-lg font-bold text-gray-900 mb-3 text-center">Browse Categories</h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
-            {[
-              { name: 'Jobs', icon: '💼', color: 'from-blue-500 to-blue-600', count: 1247 },
-              { name: 'Real Estate', icon: '🏠', color: 'from-green-500 to-green-600', count: 856 },
-              { name: 'Vehicles', icon: '🚗', color: 'from-red-500 to-red-600', count: 634 },
-              { name: 'Buy & Sell', icon: '🛍️', color: 'from-purple-500 to-purple-600', count: 923 },
-              { name: 'Services', icon: '🔧', color: 'from-orange-500 to-orange-600', count: 445 },
-              { name: 'Education', icon: '🎓', color: 'from-indigo-500 to-indigo-600', count: 234 },
-              { name: 'Community Events', icon: '📅', color: 'from-pink-500 to-pink-600', count: 167 },
-              { name: 'Health & Wellness', icon: '❤️', color: 'from-teal-500 to-teal-600', count: 189 }
-            ].map((category, index) => (
+            {categories.map((category, index) => (
               <Link 
                 to={`/category/${encodeURIComponent(category.name)}`}
                 key={index} 
