@@ -40,10 +40,98 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Side by Side: Cities and Categories */}
-      <div className="mb-4">
+      {/* Mobile Layout: Half-width content with ads on right */}
+      <div className="mb-4 lg:hidden">
+        <div className="flex gap-2">
+          {/* Left Half: Cities and Categories */}
+          <div className="w-1/2 space-y-4">
+            {/* Browse by Cities */}
+            <div>
+              <h2 className="text-sm font-bold text-gray-900 mb-2">Browse by Cities</h2>
+              <div className="grid grid-cols-2 gap-1">
+                {cities.slice(0, 4).map((city, index) => (
+                  <Link
+                    to={`/city/${encodeURIComponent(city.name)}`}
+                    key={index}
+                    className="group relative overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+                  >
+                    <div className="relative">
+                      <img
+                        src={city.image}
+                        alt={city.name}
+                        className="w-full h-16 object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-1">
+                        <h3 className="text-white font-bold text-xs truncate">{city.name}</h3>
+                        <p className="text-white/80 text-xs truncate">{city.count}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Browse by Categories */}
+            <div>
+              <h2 className="text-sm font-bold text-gray-900 mb-2">Browse Categories</h2>
+              <div className="grid grid-cols-2 gap-1">
+                {[
+                  { name: 'Jobs', icon: '💼', color: 'from-blue-500 to-blue-600', count: 1247 },
+                  { name: 'Real Estate', icon: '🏠', color: 'from-green-500 to-green-600', count: 856 },
+                  { name: 'Vehicles', icon: '🚗', color: 'from-red-500 to-red-600', count: 634 },
+                  { name: 'Services', icon: '🔧', color: 'from-orange-500 to-orange-600', count: 445 }
+                ].map((category, index) => (
+                  <Link 
+                    to={`/category/${encodeURIComponent(category.name)}`}
+                    key={index} 
+                    className="group relative bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:-translate-y-1 overflow-hidden"
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-15 transition-opacity duration-300`} />
+                    <div className="relative p-2 text-center">
+                      <div className={`inline-flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br ${category.color} text-white mb-1`}>
+                        <span className="text-xs">{category.icon}</span>
+                      </div>
+                      <h3 className="text-xs font-semibold text-gray-900 mb-0.5 truncate">{category.name}</h3>
+                      <div className="flex items-center justify-center space-x-1">
+                        <span className="text-xs font-bold text-gray-900">{category.count.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Half: Mobile Ads */}
+          <div className="w-1/2 space-y-2">
+            <div className="bg-gradient-to-br from-orange-100 to-orange-200 border-2 border-dashed border-orange-300 rounded-lg flex items-center justify-center text-orange-600 font-medium h-32">
+              <div className="text-center">
+                <div className="text-xs font-semibold mb-1">Mobile Ad Space</div>
+                <div className="text-xs">300 x 250</div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-100 to-blue-200 border-2 border-dashed border-blue-300 rounded-lg flex items-center justify-center text-blue-600 font-medium h-32">
+              <div className="text-center">
+                <div className="text-xs font-semibold mb-1">Mobile Ad Space</div>
+                <div className="text-xs">300 x 250</div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-green-100 to-green-200 border-2 border-dashed border-green-300 rounded-lg flex items-center justify-center text-green-600 font-medium h-20">
+              <div className="text-center">
+                <div className="text-xs font-semibold mb-1">Mobile Banner</div>
+                <div className="text-xs">320 x 50</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout: Full width (unchanged) */}
+      <div className="mb-4 hidden lg:block">
         {/* Browse by Cities - More Prominent */}
         <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3 text-left md:text-center">Browse by Illinois Cities</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-3 text-center">Browse by Illinois Cities</h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
             {cities.map((city, index) => (
               <Link
@@ -78,7 +166,7 @@ const Hero: React.FC = () => {
 
         {/* Browse by Categories */}
         <div>
-          <h2 className="text-lg font-bold text-gray-900 mb-3 text-left md:text-center">Browse Categories</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-3 text-center">Browse Categories</h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
             {[
               { name: 'Jobs', icon: '💼', color: 'from-blue-500 to-blue-600', count: 1247 },
