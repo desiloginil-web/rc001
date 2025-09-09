@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
       <div className="mb-4">
         {/* Browse by Cities - More Prominent */}
         <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3 text-center">Browse by Illinois Cities</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-3 text-left md:text-center">Browse by Illinois Cities</h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
             {cities.map((city, index) => (
               <Link
@@ -78,7 +78,7 @@ const Hero: React.FC = () => {
 
         {/* Browse by Categories */}
         <div>
-          <h2 className="text-lg font-bold text-gray-900 mb-3 text-center">Browse Categories</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-3 text-left md:text-center">Browse Categories</h2>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
             {[
               { name: 'Jobs', icon: '💼', color: 'from-blue-500 to-blue-600', count: 1247 },

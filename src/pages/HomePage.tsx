@@ -32,9 +32,19 @@ const HomePage: React.FC = () => {
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
+            {/* Mobile Ad Banner - Only visible on mobile/tablet */}
+            <div className="lg:hidden mb-4">
+              <AdBanners.MobileBanner />
+            </div>
+            
             <Hero />
             
             <FeaturedAds />
+            
+            {/* Mobile Flipping Ad - Only visible on mobile/tablet */}
+            <div className="lg:hidden my-4">
+              <AdBanners.FlippingAd size="medium" />
+            </div>
             
             {/* Inline Banner Ad */}
             <div className="my-3">
